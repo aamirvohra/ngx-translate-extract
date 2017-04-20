@@ -1,0 +1,11 @@
+{
+	"Login": {
+		"overview": "",
+		"emailPlaceHolder": "",
+		"email_req_msg": "",
+		"passwordPlaceHolder": "",
+		"password_req_msg": "",
+		"forgot_password": "",
+		"engage_copyright": ""
+	}
+}

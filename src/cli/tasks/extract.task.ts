@@ -1,3 +1,4 @@
+
 import { TranslationCollection } from '../../utils/translation.collection';
 import { TaskInterface } from './task.interface';
 import { ParserInterface } from '../../parsers/parser.interface';
@@ -8,6 +9,7 @@ import * as glob from 'glob';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as mkdirp from 'mkdirp';
+import { Translatify } from '../../utils/translatify';
 
 export interface ExtractTaskOptionsInterface {
 	replace?: boolean;
@@ -66,8 +68,10 @@ export class ExtractTask implements TaskInterface {
 			this._readDir(dir, this._options.patterns).forEach(path => {
 				this._out(chalk.gray('- %s'), path);
 				const contents: string = fs.readFileSync(path, 'utf-8');
+				let translatify = new Translatify();
+				let translatifiedContent = translatify.convertToExtract(contents);
 				this._parsers.forEach((parser: ParserInterface) => {
-					collection = collection.union(parser.extract(contents, path));
+					collection = collection.union(parser.extract(translatifiedContent, path));
 				});
 			});
 		});
